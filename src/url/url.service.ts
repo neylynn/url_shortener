@@ -52,4 +52,14 @@ import {
         throw new UnprocessableEntityException('Server Error');
       }
     }
+  
+    async redirect(urlCode: string) {
+      try {
+        const url = await this.repo.findOneBy({ urlCode });
+        if (url) return url;
+      } catch (error) {
+        console.log(error);
+        throw new NotFoundException('Resource Not Found');
+      }
+    }
   }
